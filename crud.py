@@ -15,8 +15,9 @@ def create_user(db: Session, user_data: UserCreate):
     db.refresh(db_user)
     return db_user
 
-def create_grievances(db: Session, content: str):
-    db_grievances = Grievances(Grievances_content=content)
+def create_grievances(db: Session, content: str , Grievances_id : int , office_department : str , user_name :str):
+    db_grievances = Grievances(Grievances_content=content,id=Grievances_id , department=office_department , name=user_name)
+
     db.add(db_grievances)
     db.commit()
     db.refresh(db_grievances)
