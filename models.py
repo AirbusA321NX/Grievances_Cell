@@ -9,6 +9,9 @@ class user(Base):
     email = Column(String ,Unique = True, index = True)
     password = Column(String , index = True)
 
+
+
+
     class admin(Base):
         __tablename__ = "admin_detail"
 
@@ -16,6 +19,10 @@ class user(Base):
         name = Column(String, index=True)
         email = Column(String, Unique=True, index=True)
         password = Column(String, index=True)
+
+
+
+
 
     class Grievances(Base):
         __tablename__="Grievances"
