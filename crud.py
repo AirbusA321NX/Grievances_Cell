@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import User ,Admin , Grievances
+from models import User , Grievances
 from schema import user , UserCreate , Grievances
 
 def get_users(db: Session , User_id : int):
@@ -9,7 +9,7 @@ def get_user(db: Session, skip: int = 0, limit: int = 10):
     return db.query(user).offset(skip).limit(limit).all()
 
 def create_user(db: Session, user_data: UserCreate):
-    db_user = user(name=user_data.name, email=user_data.email)
+    db_user = user(name=user_data.name, email=user_data.email )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
