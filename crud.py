@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-from models import user
+from models import User ,Admin , Grievances
 from schema import user , UserCreate , Grievances
 
-def get_users(db: Session , user_id : int):
-    return (db.query(user).filter(user.id==user_id)).first()
+def get_users(db: Session , User_id : int):
+    return (db.query(user).filter(User_id==User.id)).first()
 
 def get_user(db: Session, skip: int = 0, limit: int = 10):
     return db.query(user).offset(skip).limit(limit).all()
