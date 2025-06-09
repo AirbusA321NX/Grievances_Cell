@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="enum  users">
-      <change afterPath="$PROJECT_DIR$/dependencies.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roles.py" afterDir="false" />
+    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Comments/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Comments/APIs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Grievances/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/APIs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/APIs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencies.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749451143065</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department">
+      <option name="closed" value="true" />
+      <created>1749451653396</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1749451653396</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -140,6 +148,7 @@
     <MESSAGE value="model.py fix" />
     <MESSAGE value="crud import fix" />
     <MESSAGE value="enum  users" />
-    <option name="LAST_COMMIT_MESSAGE" value="enum  users" />
+    <MESSAGE value="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department" />
+    <option name="LAST_COMMIT_MESSAGE" value="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department" />
   </component>
 </project>

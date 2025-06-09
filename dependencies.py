@@ -1,29 +1,52 @@
 from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from database import SessionLocal
-from User import models as user_models
-from roles import RoleEnum
+from jose import JWTError, jwt
+from database import get_db
+from User import models
+from roles import RoleEnum as Role
+from typing import List
 
-# Dummy Auth — Replace with JWT in real case
-def get_db():
-    db = SessionLocal()
+# OAuth2 scheme setup for token extraction from request header
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+# Secret key and algorithm for JWT decoding (replace with your own secure key)
+SECRET_KEY = "your-secret-key"
+ALGORITHM = "HS256"
+
+def get_db_session():
+    return get_db()
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db_session)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
     try:
-        yield db
-    finally:
-        db.close()
-
-def get_current_user(db: Session = Depends(get_db), token: str = ""):
-    # Simulate token-to-user mapping
-    # Replace with JWT decode logic in real app
-    user = db.query(user_models.User).filter(user_models.User.email == token).first()
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid user token")
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: int = int(payload.get("sub"))
+        if user_id is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if user is None:
+        raise credentials_exception
     return user
 
-# Role check dependencies
-def require_role(required_roles: list[RoleEnum]):
-    def role_checker(current_user: user_models.User = Depends(get_current_user)):
-        if current_user.role not in required_roles:
-            raise HTTPException(status_code=403, detail="Forbidden: insufficient role")
+def get_current_active_user(current_user: models.User = Depends(get_current_user)):
+    # Optionally add more checks here (like is_active)
+    return current_user
+
+class RoleChecker:
+    def __init__(self, allowed_roles: List[Role]):
+        self.allowed_roles = [role.value if isinstance(role, Role) else role for role in allowed_roles]
+
+    def __call__(self, current_user: models.User = Depends(get_current_active_user)):
+        if current_user.role not in self.allowed_roles:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Operation not permitted"
+            )
         return current_user
-    return role_checker

@@ -1,14 +1,23 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-import crud, Comments.schemas as schemas
+from typing import List
+from Comments import crud, schemas, models
 from database import get_db
+from dependencies import get_current_active_user
+from roles import RoleEnum as Role
 
-router = APIRouter(prefix="/comments", tags=["comments"])
+router = APIRouter(prefix="/comments", tags=["Comments"])
 
 @router.post("/", response_model=schemas.Comment)
-def create(c: schemas.CommentCreate, db: Session = Depends(get_db)):
-    return crud.create_comment(db, c)
+def create_comment(comment: schemas.CommentCreate, db: Session = Depends(get_db),
+                   current_user = Depends(get_current_active_user)):
+    # Only users, employees, admin can comment
+    if current_user.role not in [Role.user.value, Role.employee.value, Role.admin.value, Role.super_admin.value]:
+        raise HTTPException(status_code=403, detail="Not authorized to comment")
+    return crud.create_comment(db, comment)
 
-@router.get("/grievance/{gid}", response_model=list[schemas.Comment])
-def read_by_grievance(gid: int, skip: int=0, limit: int=100, db: Session = Depends(get_db)):
-    return crud.get_comments_by_grievance(db, gid, skip, limit)
+@router.get("/grievance/{grievance_id}", response_model=List[schemas.Comment])
+def get_comments(grievance_id: int, db: Session = Depends(get_db),
+                 current_user = Depends(get_current_active_user)):
+    # Anyone related can see comments (you can further restrict if needed)
+    return crud.get_comments_by_grievance(db, grievance_id)
