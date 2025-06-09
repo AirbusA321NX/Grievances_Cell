@@ -10,4 +10,5 @@ def create_comment(db: Session, comment: schemas.CommentCreate):
     return db_comment
 
 def get_comments_by_grievance(db: Session, grievance_id: int):
+    grievance_id = int(grievance_id)
     return db.query(models.Comment).filter(models.Comment.grievance_id == grievance_id).all()

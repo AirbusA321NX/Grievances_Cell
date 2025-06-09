@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department">
+    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="API Logic Fix For All files + Dependency.py added for Role check for all entities">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Comments/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Comments/APIs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Comments/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/Comments/crud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Department/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Department/APIs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Grievances/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/APIs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Grievances/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/crud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Grievances/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Grievances/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/schemas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/APIs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crud.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,17 +56,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/pycharm/Grievance_cell&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/pycharm/Grievance_cell",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -139,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749451653396</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="API Logic Fix For All files + Dependency.py added for Role check for all entities">
+      <option name="closed" value="true" />
+      <created>1749452344683</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1749452344683</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -149,6 +164,7 @@
     <MESSAGE value="crud import fix" />
     <MESSAGE value="enum  users" />
     <MESSAGE value="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department" />
-    <option name="LAST_COMMIT_MESSAGE" value="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department" />
+    <MESSAGE value="API Logic Fix For All files + Dependency.py added for Role check for all entities" />
+    <option name="LAST_COMMIT_MESSAGE" value="API Logic Fix For All files + Dependency.py added for Role check for all entities" />
   </component>
 </project>

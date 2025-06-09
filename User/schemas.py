@@ -1,17 +1,25 @@
 # User/schemas.py
 from pydantic import BaseModel
+from typing import Optional
 from roles import RoleEnum
 
 class UserBase(BaseModel):
+    id: int
     email: str
     role: RoleEnum
 
-class UserCreate(UserBase):
-    password: str
-    department_id: int | None = None
+class UserLimited(UserBase):
+    # no department info here
+    pass
 
-class UserOut(UserBase):
-    id: int
+class UserFull(UserBase):
+    department_id: Optional[int]
 
     class Config:
         orm_mode = True
+
+class UserCreate(BaseModel):
+    email: str
+    password: str
+    department_id: Optional[int]
+    role: RoleEnum

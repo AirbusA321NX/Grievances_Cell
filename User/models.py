@@ -1,4 +1,3 @@
-# User/models.py
 from sqlalchemy import Column, Integer, String, Enum, ForeignKey
 from database import Base
 from roles import RoleEnum

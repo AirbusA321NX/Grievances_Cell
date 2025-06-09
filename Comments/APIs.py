@@ -19,5 +19,4 @@ def create_comment(comment: schemas.CommentCreate, db: Session = Depends(get_db)
 @router.get("/grievance/{grievance_id}", response_model=List[schemas.Comment])
 def get_comments(grievance_id: int, db: Session = Depends(get_db),
                  current_user = Depends(get_current_active_user)):
-    # Anyone related can see comments (you can further restrict if needed)
     return crud.get_comments_by_grievance(db, grievance_id)

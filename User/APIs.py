@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Union
 from User import crud, schemas, models
 from database import get_db
 from dependencies import get_current_active_user, RoleChecker
@@ -8,31 +8,39 @@ from roles import RoleEnum as Role
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-role_user = RoleChecker([Role.admin, Role.employee, Role.super_admin])
+role_admin_employee_super = RoleChecker([Role.admin, Role.employee, Role.super_admin])
 
-@router.post("/", response_model=schemas.User)
+@router.post("/", response_model=schemas.UserFull)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db),
-                current_user: models.User = Depends(role_user)):
+                current_user: models.User = Depends(role_admin_employee_super)):
     # Only admin or higher can create users
     return crud.create_user(db, user)
 
-@router.get("/", response_model=List[schemas.User])
+@router.get("/", response_model=List[Union[schemas.UserLimited, schemas.UserFull]])
 def read_users(db: Session = Depends(get_db),
-               current_user: models.User = Depends(role_user)):
-    # Admin, employee, super_admin can view users
-    allowed_roles = [Role.admin.value, Role.employee.value, Role.super_admin.value]
-    if current_user.role not in allowed_roles:
+               current_user: models.User = Depends(get_current_active_user)):
+    if current_user.role == Role.user:
+        users = crud.get_users(db)
+        # Return limited info for normal users
+        return [schemas.UserLimited.from_orm(u) for u in users]
+    elif current_user.role in [Role.admin, Role.employee, Role.super_admin]:
+        users = crud.get_users(db)
+        # Return full info for others
+        return [schemas.UserFull.from_orm(u) for u in users]
+    else:
         raise HTTPException(status_code=403, detail="Not authorized")
-    # Employees cannot see departments or roles details (enforced in frontend or filtering)
-    return crud.get_users(db)
 
-@router.get("/{user_id}", response_model=schemas.User)
+@router.get("/{user_id}", response_model=Union[schemas.UserLimited, schemas.UserFull])
 def read_user(user_id: int, db: Session = Depends(get_db),
               current_user: models.User = Depends(get_current_active_user)):
-    # User can see only their own info, or admin/employee/super admin can see any user
-    if current_user.id != user_id and current_user.role not in [Role.admin.value, Role.employee.value, Role.super_admin.value]:
-        raise HTTPException(status_code=403, detail="Not authorized")
-    user = crud.get_user(db, user_id)
+    user = crud.get_users(db, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return user
+    if current_user.id == user_id or current_user.role in [Role.admin, Role.employee, Role.super_admin]:
+        # Return full info for self or admin/employee/super_admin
+        return schemas.UserFull.from_orm(user)
+    elif current_user.role == Role.user:
+        # Normal user sees limited info for others (or restrict fully as per your policy)
+        return schemas.UserLimited.from_orm(user)
+    else:
+        raise HTTPException(status_code=403, detail="Not authorized")
