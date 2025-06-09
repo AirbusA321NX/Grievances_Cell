@@ -1,13 +1,17 @@
-from pydantic import BaseModel, EmailStr
+# User/schemas.py
+from pydantic import BaseModel
+from roles import RoleEnum
 
 class UserBase(BaseModel):
-    email: EmailStr
-    department_id: int
+    email: str
+    role: RoleEnum
 
 class UserCreate(UserBase):
     password: str
+    department_id: int | None = None
 
-class User(UserBase):
+class UserOut(UserBase):
     id: int
+
     class Config:
         orm_mode = True
