@@ -1,12 +1,16 @@
-from datetime import datetime
 from pydantic import BaseModel
 
-class Grievances(BaseModel):
+class GrievanceBase(BaseModel):
+    title: str
+    description: str
+    user_id: int
+    department_id: int
+
+class GrievanceCreate(GrievanceBase):
+    pass
+
+class Grievance(GrievanceBase):
     id: int
-    department: str
-    name: str
-    Grievances_content: str
-    timestamp: datetime
 
     class Config:
         orm_mode = True

@@ -1,27 +1,22 @@
 from fastapi import FastAPI, Request
-from pydantic import BaseModel
-from starlette.responses import HTMLResponse
+from database import engine, Base
 from fastapi.templating import Jinja2Templates
+
+from User.APIs import router as user_router
+from Department.APIs import router as dept_router
+from Grievances.APIs import router as grievance_router
+from Comments.APIs import router as comments_router
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
-class Item(BaseModel):
-    name: str
-    password: str
+app.include_router(user_router, prefix="/users", tags=["Users"])
+app.include_router(dept_router, prefix="/departments", tags=["Departments"])
+app.include_router(grievance_router, prefix="/grievances", tags=["Grievances"])
+app.include_router(comments_router, prefix="/comments", tags=["Comments"])
 
-@app.get("/", response_class=HTMLResponse)
-def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "title": "Homepage"})
-
-@app.get("/submit_grievance.html" , response_class=HTMLResponse)
-def get_item_by_id(request: Request):
-    return templates.TemplateResponse("submit_grievance.html", {"request": request, "title": "Homepage"})
-
-@app.get("/items/")
-def list_items():
-    return "list"
-
-@app.post("/items/")
-async def create_item(item: Item):
-    return item
+@app.get("/")
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
