@@ -1,70 +1,72 @@
+# Grievance_cell/crud.py
+
 from sqlalchemy.orm import Session
-from Comments import models as comment_models, schemas as comment_schemas
-from Department import models as dept_models, schemas as dept_schemas
-from Grievances import models as grievance_models, schemas as grievance_schemas
-from User import models as user_models, schemas as user_schemas
+from Department.models import Department
+from User.models import User
+from Grievances.models import Grievance
+from Comments.models import Comment
+import Department.schemas as dept_s
+import User.schemas as user_s
+import Grievances.schemas as grv_s
+import Comments.schemas as com_s
 
-
-def get_user(db: Session, user_id: int):
-    return db.query(user_models.User).filter(user_models.User.id == user_id).first()
-
-def get_users(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(user_models.User).offset(skip).limit(limit).all()
-
-def create_user(db: Session, user: user_schemas.UserCreate):
-    db_user = user_models.User(name=user.name, email=user.email)
-    db.add(db_user)
+def create_department(db: Session, department: dept_s.DepartmentCreate):
+    db_obj = Department(**department.dict())
+    db.add(db_obj)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_obj)
+    return db_obj
 
-# --- Department CRUD ---
-def get_department(db: Session, dept_id: int):
-    return db.query(dept_models.Department).filter(dept_models.Department.id == dept_id).first()
+def get_departments(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(Department).offset(skip).limit(limit).all()
 
-def get_departments(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(dept_models.Department).offset(skip).limit(limit).all()
-
-def create_department(db: Session, dept: dept_schemas.DepartmentCreate):
-    db_dept = dept_models.Department(name=dept.name)
-    db.add(db_dept)
-    db.commit()
-    db.refresh(db_dept)
-    return db_dept
-
-# --- Grievance CRUD ---
-def get_grievance(db: Session, grievance_id: int):
-    return db.query(grievance_models.Grievance).filter(grievance_models.Grievance.id == grievance_id).first()
-
-def get_grievances(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(grievance_models.Grievance).offset(skip).limit(limit).all()
-
-def create_grievance(db: Session, grievance: grievance_schemas.GrievanceCreate):
-    db_gr = grievance_models.Grievance(
-        title=grievance.title,
-        description=grievance.description,
-        user_id=grievance.user_id,
-        department_id=grievance.department_id
+def create_user(db: Session, user: user_s.UserCreate):
+    db_obj = User(
+        email=user.email,
+        password=user.password,
+        department_id=user.department_id
     )
-    db.add(db_gr)
+    db.add(db_obj)
     db.commit()
-    db.refresh(db_gr)
-    return db_gr
+    db.refresh(db_obj)
+    return db_obj
 
-# --- Comment CRUD ---
-def get_comment(db: Session, comment_id: int):
-    return db.query(comment_models.Comment).filter(comment_models.Comment.id == comment_id).first()
+def get_users(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(User).offset(skip).limit(limit).all()
 
-def get_comments(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(comment_models.Comment).offset(skip).limit(limit).all()
-
-def create_comment(db: Session, comment: comment_schemas.CommentCreate):
-    db_cm = comment_models.Comment(
-        content=comment.content,
-        user_id=comment.user_id,
-        grievance_id=comment.grievance_id
+def create_grievance(db: Session, g: grv_s.GrievanceCreate):
+    db_obj = Grievance(
+        user_id=g.user_id,
+        department_id=g.department_id,
+        status=g.status
     )
-    db.add(db_cm)
+    db.add(db_obj)
     db.commit()
-    db.refresh(db_cm)
-    return db_cm
+    db.refresh(db_obj)
+    return db_obj
+
+def get_grievances(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(Grievance).offset(skip).limit(limit).all()
+
+def update_grievance_status(db: Session, grievance_id: int, status: str):
+    g = db.query(Grievance).filter(Grievance.id == grievance_id).first()
+    g.status = status
+    db.commit()
+    db.refresh(g)
+    return g
+
+def create_comment(db: Session, c: com_s.CommentCreate):
+    db_obj = Comment(**c.dict())
+    db.add(db_obj)
+    db.commit()
+    db.refresh(db_obj)
+    return db_obj
+
+def get_comments_by_grievance(db: Session, grievance_id: int, skip: int = 0, limit: int = 100):
+    return (
+        db.query(Comment)
+          .filter(Comment.grievance_id == grievance_id)
+          .offset(skip)
+          .limit(limit)
+          .all()
+    )

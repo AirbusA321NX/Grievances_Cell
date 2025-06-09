@@ -1,21 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-import crud, database
-from Grievances import models, schemas
+import crud, Grievances.schemas as schemas
+from database import get_db
 
-router = APIRouter()
-
-def get_db():
-    db = database.SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+router = APIRouter(prefix="/grievances", tags=["grievances"])
 
 @router.post("/", response_model=schemas.Grievance)
-def create_grievance(gr: schemas.GrievanceCreate, db: Session = Depends(get_db)):
-    return crud.create_grievance(db=db, grievance=gr)
+def create(g: schemas.GrievanceCreate, db: Session = Depends(get_db)):
+    return crud.create_grievance(db, g)
 
 @router.get("/", response_model=list[schemas.Grievance])
-def list_grievances(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    return crud.get_grievances(db=db, skip=skip, limit=limit)
+def read_all(skip: int=0, limit: int=100, db: Session = Depends(get_db)):
+    return crud.get_grievances(db, skip, limit)
+
+@router.patch("/{id}/status", response_model=schemas.Grievance)
+def update_status(id: int, status: str, db: Session = Depends(get_db)):
+    return crud.update_grievance_status(db, id, status)

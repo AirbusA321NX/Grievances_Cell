@@ -1,16 +1,16 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 class GrievanceBase(BaseModel):
-    title: str
-    description: str
     user_id: int
     department_id: int
 
 class GrievanceCreate(GrievanceBase):
-    pass
+    status: str = "pending"
 
 class Grievance(GrievanceBase):
     id: int
-
+    timestamp: datetime
+    status: str
     class Config:
         orm_mode = True

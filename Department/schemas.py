@@ -8,6 +8,5 @@ class DepartmentCreate(DepartmentBase):
 
 class Department(DepartmentBase):
     id: int
-
     class Config:
         orm_mode = True

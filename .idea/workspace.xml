@@ -10,7 +10,6 @@
       <change beforePath="$PROJECT_DIR$/Comments/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Comments/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Comments/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Comments/schemas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Department/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Department/APIs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Department/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Department/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Department/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Department/schemas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Grievances/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/APIs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Grievances/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/models.py" afterDir="false" />
@@ -21,6 +20,8 @@
       <change beforePath="$PROJECT_DIR$/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/crud.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/submit_grievance.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
