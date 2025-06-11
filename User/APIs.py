@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Union
-
+from passlib.context import CryptContext
 from User import crud, schemas, models
 from database import get_db
 from dependencies import get_current_active_user, RoleChecker
@@ -9,6 +9,7 @@ from roles import RoleEnum as Role
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # Only admin, employee, super_admin can create users
 role_admin_employee_super = RoleChecker([Role.admin, Role.employee, Role.super_admin])
 
@@ -54,3 +55,14 @@ def read_user(
         return schemas.UserLimited.from_orm(user)
 
     raise HTTPException(status_code=403, detail="Not authorized")
+
+
+@router.post("/reset-password")
+def reset_password(data: schemas.PasswordReset, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.email == data.email).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user.hashed_password = pwd_context.hash(data.new_password)
+    db.commit()
+    return {"message": "Password reset successful"}
