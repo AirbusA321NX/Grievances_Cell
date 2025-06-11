@@ -14,15 +14,33 @@ def verify_password(plain: str, hashed: str) -> bool:
     return pwd_context.verify(plain, hashed)
 
 def create_user(db: Session, user: schemas.UserCreate):
-    hashed_pw = get_password_hash(user.password)
+    # Check if department_id is provided, else use/create 'OTR'
+    if user.department_id is None:
+        print("No department_id provided, checking for OTR...")
+        department = db.query(Department).filter_by(name="OTR").first()
+        if not department:
+            print("OTR not found, creating...")
+            department = Department(name="OTR")
+            db.add(department)
+            db.commit()
+            db.refresh(department)
+            print("OTR created.")
+        department_id = department.id
+        print("Using department_id:", department_id)
+    else:
+        department_id = user.department_id
+
     db_user = models.User(
         email=user.email,
-        password=hashed_pw,
-        department_id=user.department_id,
+        password=get_password_hash(user.password),  # hash only if you're using secure login
+        department_id=department_id,
         role=user.role
     )
-    db.add(db_user); db.commit(); db.refresh(db_user)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
     return db_user
+
 
 def authenticate_user(db: Session, email: str, password: str) -> Optional[models.User]:
 

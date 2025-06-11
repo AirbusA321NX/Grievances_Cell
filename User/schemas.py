@@ -22,5 +22,5 @@ class UserFull(UserBase):
 class UserCreate(BaseModel):
     email: str
     password: str
-    department_id: Optional[int]
+    department_id: Optional[int] = None
     role: RoleEnum
