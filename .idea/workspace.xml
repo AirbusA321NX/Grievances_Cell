@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="fixed grievance paramter where one can see when grievance was made/resolved">
+    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="warning removed">
+      <change afterPath="$PROJECT_DIR$/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Grievances/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/APIs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Grievances/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/crud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Grievances/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/APIs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/crud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dependencies.py" beforeDir="false" afterPath="$PROJECT_DIR$/dependencies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,17 +48,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/pycharm/Grievance_cell",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/pycharm/Grievance_cell&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -157,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749463694606</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="warning removed">
+      <option name="closed" value="true" />
+      <created>1749613602757</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1749613602757</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -169,6 +174,7 @@
     <MESSAGE value="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department" />
     <MESSAGE value="API Logic Fix For All files + Dependency.py added for Role check for all entities" />
     <MESSAGE value="fixed grievance paramter where one can see when grievance was made/resolved" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed grievance paramter where one can see when grievance was made/resolved" />
+    <MESSAGE value="warning removed" />
+    <option name="LAST_COMMIT_MESSAGE" value="warning removed" />
   </component>
 </project>
