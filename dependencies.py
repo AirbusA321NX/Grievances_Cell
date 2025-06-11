@@ -1,5 +1,5 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer , HTTPBearer , HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from jose import JWTError, jwt
 from database import get_db
@@ -11,8 +11,8 @@ from datetime import datetime, timedelta
 SECRET_KEY = "your-secret-key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
-# OAuth2 scheme setup for token extraction from request header
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+oauth2_scheme = HTTPBearer()
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
@@ -26,7 +26,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 def get_db_session():
     return get_db()
 
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db_session)):
+
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(oauth2_scheme), db: Session = Depends(get_db_session)):
+    token = credentials.credentials  # Extract the actual bearer token
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -44,8 +46,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         raise credentials_exception
     return user
 
+
 def get_current_active_user(current_user: models.User = Depends(get_current_user)):
-    # Optionally add more checks here (like is_active)
     return current_user
 
 class RoleChecker:

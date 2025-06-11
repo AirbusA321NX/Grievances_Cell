@@ -6,6 +6,10 @@ class DepartmentBase(BaseModel):
 class DepartmentCreate(DepartmentBase):
     pass
 
+class DepartmentOut(BaseModel):
+    id: int
+    name: str
+
 class Department(DepartmentBase):
     id: int
     class Config:
