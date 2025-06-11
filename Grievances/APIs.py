@@ -45,3 +45,19 @@ def assign_all(
     # Only admin and super_admin can assign pending grievances
     crud.assign_grievances_to_employees(db)
     return
+
+@router.post("/{grievance_id}/resolve", response_model=schemas.GrievanceOut)
+def resolve_grievance(
+    grievance_id: int,
+    resolver_id: int,
+    solved: bool = True,
+    db: Session = Depends(get_db),
+):
+    """
+    Mark a grievance solved or not_solved.
+    - resolved_by and resolved_at will be set here.
+    """
+    updated = crud.resolve_grievance(db, grievance_id, resolver_id, solved)
+    if not updated:
+        raise HTTPException(404, "Grievance not found")
+    return updated

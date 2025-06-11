@@ -1,8 +1,10 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
 from User.models import User
+from .models import GrievanceStatus
 from roles import RoleEnum
 import uuid
+import datetime
 
 def create_grievance(db: Session, grievance: schemas.GrievanceCreate, user_id: int):
     # Generate unique ticket ID
@@ -43,3 +45,27 @@ def get_grievances_by_employee(db: Session, employee_id: int):
 
 def get_all_grievances(db: Session):
     return db.query(models.Grievance).all()
+
+def resolve_grievance(
+    db: Session,
+    grievance_id: int,
+    resolver_id: int,
+    solved: bool = True
+) -> models.Grievance | None:
+
+    # 1) Fetch the grievance
+    g = db.query(models.Grievance).filter(models.Grievance.id == grievance_id).first()
+    if not g:
+        return None
+
+
+    g.status = GrievanceStatus.solved if solved else GrievanceStatus.not_solved
+
+    # 3) Record resolver and timestamp
+    g.resolved_by = resolver_id
+    g.resolved_at = datetime.datetime.utcnow()
+
+
+    db.commit()
+    db.refresh(g)
+    return g

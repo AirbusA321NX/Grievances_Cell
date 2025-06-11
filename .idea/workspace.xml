@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="API Logic Fix For All files + Dependency.py added for Role check for all entities">
+    <list default="true" id="05b54566-5e4a-43b1-8fa2-ca45c0f5e845" name="Changes" comment="fixed grievance paramter where one can see when grievance was made/resolved">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Comments/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Comments/APIs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Comments/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/Comments/crud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Department/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Department/APIs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Grievances/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/APIs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Grievances/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/crud.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Grievances/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Grievances/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grievances/schemas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User/APIs.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/APIs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/crud.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/User/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/schemas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crud.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,7 +149,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749452344683</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fixed grievance paramter where one can see when grievance was made/resolved">
+      <option name="closed" value="true" />
+      <created>1749463694606</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1749463694606</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -165,6 +168,7 @@
     <MESSAGE value="enum  users" />
     <MESSAGE value="make crud files for all apps + fixing APIs , models (for user) , adding logic to transfer ticket id to department" />
     <MESSAGE value="API Logic Fix For All files + Dependency.py added for Role check for all entities" />
-    <option name="LAST_COMMIT_MESSAGE" value="API Logic Fix For All files + Dependency.py added for Role check for all entities" />
+    <MESSAGE value="fixed grievance paramter where one can see when grievance was made/resolved" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed grievance paramter where one can see when grievance was made/resolved" />
   </component>
 </project>
