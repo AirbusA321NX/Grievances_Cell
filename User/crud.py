@@ -4,7 +4,7 @@ from Department.models import Department
 from Department.crud import create_department, get_departments
 from passlib.context import CryptContext
 from typing import List , Optional
-
+import pdb
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def get_password_hash(password: str) -> str:
@@ -60,3 +60,5 @@ def get_users(db: Session, role_filter: List[str] = None):
 
 def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
+
+   

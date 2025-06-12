@@ -2,7 +2,12 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class GrievanceCreate(BaseModel):
-    department_id: int
+    grievance: str
+
+class GrievanceUpdate(BaseModel):
+    grievance: str | None = None
+    status: str | None = None
+    assigned_to: int | None = None  
 
 class GrievanceOut(BaseModel):
     id: int

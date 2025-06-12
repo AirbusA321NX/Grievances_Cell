@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Union
-
+import traceback
 from User import crud, schemas, models
 from database import get_db
 from dependencies import get_current_active_user, RoleChecker
@@ -12,16 +12,27 @@ router = APIRouter(prefix="/users", tags=["Users"])
 # Only admin, employee, super_admin can create users
 role_admin_employee_super = RoleChecker([Role.admin, Role.employee, Role.super_admin])
 
-@router.post("/", response_model=schemas.UserFull)
+@router.post("/", response_model=schemas.UserFull, operation_id="create_new_user")
 def create_user(
     user: schemas.UserCreate,
     db: Session = Depends(get_db),
     current_user: models.User = Depends(role_admin_employee_super),
 ):
-    return crud.create_user(db, user)
+    try:
+        # Prevent privilege escalation: cannot create user with higher role than yourself
+        role_hierarchy = [Role.user, Role.employee, Role.admin, Role.super_admin]
+        creator_index = role_hierarchy.index(current_user.role)
+        new_user_index = role_hierarchy.index(user.role)
+        if new_user_index > creator_index:
+            raise HTTPException(status_code=403, detail="Cannot create user with higher privilege than yourself.")
+        return crud.create_user(db, user)
+    except Exception as e:
+        print("Error in create_user:", e)
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 
-@router.get("/", response_model=List[Union[schemas.UserLimited, schemas.UserFull]])
+@router.get("/", response_model=List[Union[schemas.UserLimited, schemas.UserFull]], operation_id="read_all_users")
 def read_users(
     db: Session = Depends(get_db),
     current_user: models.User = Depends(get_current_active_user),
@@ -34,7 +45,7 @@ def read_users(
     return [schemas.UserFull.from_orm(u) for u in users]
 
 
-@router.get("/{user_id}", response_model=Union[schemas.UserLimited, schemas.UserFull])
+@router.get("/user_id", response_model=Union[schemas.UserLimited, schemas.UserFull], operation_id="read_user_by_id")
 def read_user(
     user_id: int,
     db: Session = Depends(get_db),

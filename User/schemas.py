@@ -4,6 +4,7 @@ from typing import Optional
 from roles import RoleEnum
 
 class UserBase(BaseModel):
+    user_id: Optional[int] = None
     email: str
     password: str
     department_id: Optional[int] = None
@@ -20,6 +21,7 @@ class UserFull(UserBase):
         orm_mode = True
 
 class UserCreate(BaseModel):
+    user_id: Optional[int] = None
     email: str
     password: str
     department_id: Optional[int] = None

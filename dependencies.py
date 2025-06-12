@@ -27,7 +27,7 @@ def get_db_session():
     return get_db()
 
 
-def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(oauth2_scheme), db: Session = Depends(get_db_session)):
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     token = credentials.credentials  # Extract the actual bearer token
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -36,11 +36,13 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(oauth2_
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: int = int(payload.get("sub"))
-        if user_id is None:
+        user_id_raw = payload.get("sub")
+        if user_id_raw is None or not str(user_id_raw).isdigit():
             raise credentials_exception
-    except JWTError:
+        user_id = int(user_id_raw)
+    except (JWTError, ValueError, TypeError):
         raise credentials_exception
+
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if user is None:
         raise credentials_exception
@@ -56,6 +58,7 @@ class RoleChecker:
 
     def __call__(self, current_user: models.User = Depends(get_current_active_user)):
         if current_user.role not in self.allowed_roles:
+            print(11111)
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Operation not permitted"
