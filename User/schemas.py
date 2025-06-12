@@ -1,7 +1,12 @@
 # User/schemas.py
 from pydantic import BaseModel
+from pydantic.networks import EmailStr
 from typing import Optional
 from roles import RoleEnum
+
+class PasswordReset(BaseModel):
+    email: EmailStr
+    new_password: str
 
 class UserBase(BaseModel):
     user_id: Optional[int] = None
