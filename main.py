@@ -16,7 +16,7 @@ Base.metadata.create_all(bind=engine)
 dept_models.Base.metadata.create_all(bind=engine)
 user_models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(debug=True)
 
 # Register routers
 app.include_router(dept_router)

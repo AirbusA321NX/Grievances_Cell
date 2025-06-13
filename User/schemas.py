@@ -23,6 +23,7 @@ class UserFull(UserBase):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 class UserCreate(BaseModel):
     email: str
