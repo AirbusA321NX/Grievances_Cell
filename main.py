@@ -11,6 +11,7 @@ import User.APIs as user_apis
 from Department import models as dept_models
 from User import models as user_models
 
+
 # Create database tables
 Base.metadata.create_all(bind=engine)
 dept_models.Base.metadata.create_all(bind=engine)

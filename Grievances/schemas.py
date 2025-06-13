@@ -3,6 +3,11 @@ from datetime import datetime
 
 class GrievanceCreate(BaseModel):
     grievance: str
+    greviance_id: int
+    user_id: int
+    role: str
+    department_id: int
+
 
 class GrievanceUpdate(BaseModel):
     grievance: str | None = None

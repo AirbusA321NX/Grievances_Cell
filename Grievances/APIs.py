@@ -20,6 +20,7 @@ def create_grievance(
     grievance: schemas.GrievanceCreate,
     db: Session = Depends(get_db),
     current_user: User = Depends(user_only),
+    Authorization: Bearer = Depends(get_current_active_user),
 ):
     # Only users can raise grievances
     return crud.create_grievance(db, grievance, current_user.id)

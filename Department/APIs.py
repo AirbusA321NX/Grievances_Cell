@@ -13,11 +13,7 @@ role_admin = RoleChecker([Role.admin, Role.super_admin])
 
 @router.post("/", response_model=schemas.Department)
 def create_department(dept: schemas.DepartmentCreate, db: Session = Depends(get_db),
-                          current_user: User = Depends(role_admin)):
-    db_dept = models.Department(name=dept.name)
-    db.add(db_dept)
-    db.commit()
-    db.refresh(db_dept)
+      current_user: User = Depends(role_admin)):
     return crud.create_department(db, dept)
 
 @router.get("/", response_model=List[schemas.Department])

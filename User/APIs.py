@@ -45,7 +45,7 @@ def read_users(
     return [schemas.UserFull.from_orm(u) for u in users]
 
 
-@router.get("/user_id", response_model=Union[schemas.UserLimited, schemas.UserFull], operation_id="read_user_by_id")
+@router.get("/{user_id}", response_model=Union[schemas.UserLimited, schemas.UserFull], operation_id="read_user_by_id")
 def read_user(
     user_id: int,
     db: Session = Depends(get_db),
